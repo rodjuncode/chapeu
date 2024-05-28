@@ -4,6 +4,8 @@ let hue, skin, spiral;
 let faceRadiusX = 60;
 let faceRadiusY = 155;
 
+let hat_progress = 100;
+
 function setup() {
   createCanvas(500, 800);
 
@@ -22,13 +24,15 @@ function draw() {
 
   push();
   translate(width / 2 - 10, height / 2 + 30);
-  drawSpiral();
+  drawSpiral(hat_progress);
   drawCharacter();
   pop();
 
   drawFrame();
 
-  saveFrames('chapeu', 'png', 10, 22);
+  hat_progress++;
+
+  // saveFrames('chapeu', 'png', 10, 22);
 
 }
 
@@ -36,16 +40,18 @@ function drawFrame() {
   noFill();
   stroke(0, 0, 100);
   strokeWeight(40);
-  rect(0, 0, width, height);
+  rect(0, 0, width, height, 30, 30);
 }
 
-function drawSpiral() {
+function drawSpiral(hat_progress) {
   noFill();
   strokeWeight(1);
   stroke(0, 0, 100);
   rotate(angle);
   beginShape();
-  for (let i = 0; i < 2150; i++) {
+  let p = hat_progress;
+  p = constrain(1, 2200);
+  for (let i = 0; i < hat_progress; i++) {
     let noiseValX = noise(frameCount * 0.02 + i) * 1.5;
     let noiseValY = noise(frameCount * 0.05 + i) * 1.5; // offset the noise value for y to create a more dynamic movement
 
