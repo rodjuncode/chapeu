@@ -6,11 +6,25 @@ let faceRadiusY = 155;
 
 let hat_progress = 100;
 
+let qrDiv;
+let qrImage;
+let qr;
+
 function setup() {
   createCanvas(500, 800);
 
   colorMode(HSB);
   frameRate(22);
+
+  qrDiv = createDiv();  
+  qrDiv.position(width/2-26.5, 27);
+
+  qr = qrcode(0, 'L');
+  qr.addData("https://rodjuncode.github.io/chapeu/");
+  qr.make();
+
+  qrImg = qr.createImgTag(2, 2, "qr code");
+  qrDiv.html(qrImg);
 
   // random hue color for bg
   hue = random(360);
@@ -23,17 +37,28 @@ function draw() {
   spiral = { radius: 0, radiusX: 0, radiusY: 0, angle: 0, delta: 3 };
 
   push();
-  translate(width / 2 - 10, height / 2 + 30);
+  translate(width / 2, height / 2 + 30);
   drawSpiral(hat_progress);
   drawCharacter();
+
   pop();
 
+  drawQR();
   drawFrame();
 
   hat_progress+=5;
 
   // saveFrames('chapeu', 'png', 10, 22);
 
+}
+
+function drawQR() {
+  push();
+  noStroke();
+  fill(0, 0, 100);
+  rectMode(CENTER);
+  rect(width - 245, 50, 77, 95, 7, 7);
+  pop();
 }
 
 function drawFrame() {
@@ -100,7 +125,7 @@ function drawCharacter() {
   pop();  
   fill(skin, 57, 98);
   beginShape();
-  for (let a = 0; a < PI + PI / 10; a += TWO_PI / 100) {
+  for (let a = -.05; a < PI + PI / 10; a += TWO_PI / 100) {
     curveVertex(faceRadiusX * cos(a), faceRadiusY * sin(a));
   }
   endShape();
