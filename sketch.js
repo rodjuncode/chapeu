@@ -30,7 +30,7 @@ function draw() {
 
   drawFrame();
 
-  hat_progress++;
+  hat_progress+=5;
 
   // saveFrames('chapeu', 'png', 10, 22);
 
